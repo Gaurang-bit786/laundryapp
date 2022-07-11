@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}
+Card Detail
+{% endblock %}
+
+
+
+{% load static %}
+{% block content %}
+
+
+<nav class="purple darken-2">
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input disabled id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons"><a class="text-light" href="{% url 'order_details' %}">close</a></i></label>
+
+        </div>
+      </form>
+    </div>
+  </nav>
+
+
+  <div style="margin-top:25px;"></div>
+
+    {% if account %}
+        {% for account in account %}
+        <div class="container mt-3">
+            <form action="{% url 'check_out' %}" method="post">
+                {% csrf_token %}
+                <input  type="text" name="order_id" value="{{ id }}" required class="form-control"  hidden>
+
+                <div class="form-group" hidden>
+                    <label>Account Name:</label>
+                    <input type="text" name="id" value="{{ account.id }}" required class="form-control" hidden>
+                </div>
+
+                <div class="form-group">
+                    <label>Account Name:</label>
+                    <input type="text" name="name" value="{{ account.name }}" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Card Number:</label>
+                    <input type="text" name="card_number" value="{{ account.card_number }}" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label>Expiry Date:</label>
+                            <div class="row">
+                                <div class="col s2">
+                                    <input type="text" name="month" value="{{ account.card_month }}" required class="form-control">
+                                </div>
+                                <div class="col s2">
+                                    <input type="text" name="year" value="{{ account.card_year }}" required class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>CVV:</label>
+                            <input type="text" name="cvv" value="{{ account.cvv }}" required class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <button type="submit" class="form-control btn btn-success">Pay Now</button>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="container mt-3">
+            <form action="{% url 'check_out' %}" method="post">
+                {% csrf_token %}
+
+                <input hidden type="text" name="order_id" value="{{ id }}" required class="form-control" >
+                <div class="form-group">
+                    <label>Account Name:</label>
+                    <input type="text" name="name" value="" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Card Number:</label>
+                    <input type="text" name="card_number" required value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label>Expiry Date:</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" name="month" required value="" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <input type="text" name="year" required value="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>CVV:</label>
+                            <input type="text" name="cvv" required value="" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <button type="submit" class="form-control btn btn-success">Pay Now</button>
+                </div>
+            </form>
+        </div>
+
+    {% endif %}
+{% endblock %}

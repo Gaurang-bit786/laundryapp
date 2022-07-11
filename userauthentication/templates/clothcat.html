@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+home
+{% endblock %}
+
+
+{% block extrastyle %}
+<style>
+.brand-name{
+    font-family: cursive;
+}
+</style>
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+<nav class="purple darken-2">
+    <div class="nav-wrapper ">
+      <a href="#!" class="brand-logo">Laundry App</a>
+      <a href="{% url 'home' %}" data-target="mobile-demo" class="sidenav-trigger "><i class="material-icons ">arrow_back</i></a>
+      
+    </div>
+</nav>
+
+
+    <div class="container py-5">
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>Cloth</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cloth in cloth %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ cloth }}</td>
+                    <td>{{ cloth.price }}</td>
+                    <td>{{ cloth.number_of_clothes }}</td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+{% include 'navbar.html' %}
+
+{% endblock %}

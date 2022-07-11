@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Login
+{% endblock %}
+{% block extrastyle %}
+{% load static  %}
+
+    <script>
+
+        window.onload=function(){
+            setTimeout(function() {
+                document.getElementById('loader').style.display="none"
+                document.getElementById('content').style.display="block"
+            },5000);
+        };
+    </script>
+    <style>
+        #content{display:none};
+        #loader{
+            position:absolute;
+            margin:auto;
+            top:0;
+            bottom:0;
+            left:20;
+        }
+        #loader img{width:100%;}
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    <div id="loader">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img src="{% static 'img/laundry.jpg' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="content">
+
+<nav class="purple dark-2">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center" style="font-size:20px;">The Laundry Lounge</a>
+    </div>
+</nav>
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#test2">Login</a></li>
+        <li class="tab col s3"><a href="#test1">Register</a></li>
+      </ul>
+    </div>
+    <div id="test2" class="col s12">
+
+          <div class="container ">
+              <div class="row text-center" >
+                  <div class="col">
+                      <h2 class="font-weight-bold ">Welcome <span class=''>User</span></h2>
+                  </div>
+              </div>
+              <div class="row " id="login">
+                <form action="{% url 'login' %}"  method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Username"  class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit"  class="form-control btn btn-primary">Login</button>
+                    </div>
+                </form>
+              </div>
+          </div>
+
+
+    </div>
+
+    <div id="test1" class="col s12">
+      <div class="container ">
+          <div class="row text-center" >
+              <div class="col">
+                  <h4 class="font-weight-bold">Register <span class="text-primary">User</span></h4>
+              </div>
+          </div>
+          <div class="row " id="login">
+              <div  id="login">
+                  <form action="{% url 'register' %}"  method="post">
+                      {% csrf_token %}
+                      <div class="form-group">
+                          <input type="text" name="firstname" placeholder="Firstname"  class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                          <input type="text" name="lastname" placeholder="Lastname"  class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                          <input type="email" name="email" placeholder="Email"  class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                          <input type="text" name="address" placeholder="Address"  class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                          <input type="password" name="password" class="form-control" placeholder="Password" required>
+                      </div>
+                      <div class="form-group">
+                          <input value="Register" type="submit" class="form-control btn btn-primary" required>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

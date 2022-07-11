@@ -1,0 +1,130 @@
+{% extends "admin/change_list.html" %}
+
+{% block content_title %}
+    <h1 class="text-center"> Data </h1>
+{% endblock %}
+
+{% block result_list %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+
+<div class="container">
+    <div class="row">
+        <h3>Orders</h3>
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="row">
+        <h3>Reveneu</h3>
+        <canvas id="myChart1"></canvas>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+var xValues = [100,200,300,400,500,600,700,800,900,1000];
+
+
+
+var xValues1 = [];
+var yValues = [];
+$.ajax({
+    url:"http://laundryapp.pythonanywhere.com/data/",
+    type:"GET",
+    dataType:"json",
+    success:function(e){
+      new Chart("myChart1", {
+          type: "bar",
+          data: {
+            labels: e['label'],
+            datasets: [{
+              label:"Reveneu",
+            //   backgroundColor: barColors,
+              data: e['price'],
+              backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)',
+              'rgb(153, 102, 255)',
+              'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+            }]
+          },
+        options: {
+            "hover": {
+                "animationDuration": 3
+            },
+            "animation": {
+                "duration": 1,
+                "onComplete": function () {
+                    var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+            },
+            legend: {
+                "display": true
+            },
+            tooltips: {
+                "enabled": true
+            }
+
+            }
+
+      });
+      console.log(e)
+      new Chart("myChart", {
+          type: "line",
+          data: {
+            labels: e['lavel_rev'],
+            datasets: [{
+              label: 'Number Of Orders',
+              fill: false,
+               borderColor: 'rgb(75, 192, 192)',
+              data: e['count_rev']
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "The Laundry Lounge"
+            }
+          }
+        });
+    }
+  })
+
+
+
+
+</script>
+
+
+
+{{ block.super }}
+{% endblock %}

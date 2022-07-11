@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+Check Out
+{% endblock %}
+
+
+{% block extrastyle %}
+
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary text-light font-weight-bolder">
+    <a class="text-light" href="{% url 'order_details' %}">
+        <h5 class="brand-name"> <i class="fa fa-arrow-left" aria-hidden="true"></i> </h5>
+    </a>
+    <div class="m-auto">
+        <h4>Payment</h4>
+    </div>
+</nav>
+
+
+
+<h1 class="text-center mt-5">
+    <i class="fa fa-lightbulb-o text-success display-1" aria-hidden="true"></i>
+</h1>
+
+<h3 class="my-2 text-center">Payment Done Succesfully</h3>
+<h5 class="my-2 text-center">Go to Home Page</h5>
+
+
+{% endblock %}

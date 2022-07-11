@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+Check Out
+{% endblock %}
+
+
+{% block extrastyle %}
+<style>
+.brand-name{
+    font-family: cursive;
+}
+</style>
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+
+
+
+
+
+<nav class="purple darken-2">
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input disabled id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons"><a class="text-light" href="{% url 'order_details' %}">arrow_back</a></i></label>
+
+        </div>
+      </form>
+    </div>
+</nav>
+
+
+
+
+
+<div class="container">
+    <div class="col s12 m7">
+        <h2 class="header">Checkout</h2>
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <form action="{% url 'pay_premium_order' %}" method="post">
+                        {% csrf_token %}
+                        <input type="text" hidden value="{{ order_id}}" name="order">
+                        Name : {{ user.username }}<br />
+                    Mobile : 97XXXXXX49  <br />
+                    Order Price : {{price}} <i class="fa fa-dollar" aria-hidden="true"></i><br />
+                    OTP: <input type="password" name="otp"><br/>
+                    OTP will expire in : <span class="timer" id="timer"></span><br>
+                    <button class=" btn btn-primary my-2">Verify OTP</button>
+                    <a class=" btn btn-primary my-2 text-light" onclick="generate()">Generate OTP</a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        function generate(){
+            window.location.reload()
+        }
+        var sec = 59;
+        var timer = setInterval(
+            function(){
+                document.getElementById('timer').innerHTML = '00:'+sec;
+                sec--;
+                if(sec<=0){
+                    clearInterval(timer);
+                }
+            },1000
+        )
+    </script>
+{% endblock %}

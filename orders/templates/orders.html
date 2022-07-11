@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+home
+{% endblock %}
+
+
+{% block extrastyle %}
+<style>
+.brand-name{
+    font-family: cursive;
+}
+</style>
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+{% include 'topbar.html' %}
+
+<div class="container my-2">
+    <div class="row text-center">
+        <div class="col">
+            <h4>Place an order</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {% for cloth in cloth %}
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <img src="images/yuna.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s10">
+              <span class="black-text">
+                <a style="text-decoration:none;color:black;font-weight:bold;" href="{% url 'placeorder' cloth.id %}"> {{cloth}}</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+</div>
+
+
+{% endblock %}

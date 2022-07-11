@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}
+Feedback
+{% endblock %}
+
+{% block content %}
+
+
+
+<nav>
+    <div class="nav-wrapper">
+    <a href="{% url 'user' %}" data-target="mobile-demo" class="sidenav-trigger"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+
+    </div>
+</nav>
+
+<div style="margin-top:25px;"></div>
+
+<div class="container my-4">
+    <form action="{% url 'feedback' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="feedback" id="" cols="10" rows="5" class="form-control" placeholder="Share your review ....."></textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+</div>
+
+{% include 'navbar.html' %}
+{% endblock %}

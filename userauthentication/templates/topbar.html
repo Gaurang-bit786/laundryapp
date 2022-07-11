@@ -1,0 +1,33 @@
+
+  <nav>
+    <div class="nav-wrapper purple darken-2">
+      <a href="#!" class="brand-logo" style="font-size:20px">The Laundry Lounge</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <ul class="sidenav"  id="mobile-demo">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80">
+      </div>
+      <a href="#name"><span class="white-text name">{{user.first_name}} {{user.last_name}}</span></a>
+      <a href="#email"><span class="white-text email">{{user.username}}</span></a>
+    </div></li>
+    <li><a href="{% url 'home' %}" >Home</a></li>
+    <li><a href="{% url 'user' %}" >Profile</a></li>
+    <li><a href="{% url 'order_details' %}" >Orders</a></li>
+    <li><a href="{% url 'order' %}" >Normal Orders</a></li>
+    <li><a href="{% url 'premium_order_y' %}" >Premium  Orders</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+    <li>
+      <a class='dropdown-trigger ' href='#' data-target='dropdown1'>Helpline</a>
+    </li>
+  </ul>
+
+
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="{% url 'order_help' %}">Order</a></li>
+    <li><a href="{% url 'pay_help' %}">Payemnt</a></li>
+    <li><a href="{% url 'pack_help' %}">Package</a></li>
+  </ul>

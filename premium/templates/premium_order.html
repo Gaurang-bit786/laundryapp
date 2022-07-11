@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+Premium Order Place
+{% endblock %}
+
+
+{% load static %}
+{% block content %}
+
+{% include 'topbar.html' %}
+
+<div class="container my-2">
+    <div class="row text-center">
+        <div class="col">
+            <h4>Place an order</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {% for cloth in cloth %}
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col">
+              <span class="black-text">
+                <h6>
+                    <a style="text-decoration:none;color:black;font-weight:bold;" href="{% url 'premium_order_service' cloth.id %}"> {{cloth}}</a>
+                </h6>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+</div>
+
+
+{% endblock %}

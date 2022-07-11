@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% include 'topbar.html' %}
+
+<div style="margin-top:20px;"></div>
+
+
+<div class="container">
+    <div class="row center">
+        <h5>Helpline</h5>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <form action="{% url 'order_help' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Attach Image :</label>
+            <input type="file" name="image">
+            <label>Orders :</label>
+            <input type="text" name="order">
+            <button><button type="submit" class="btn btn-primary">Submit</button></button>
+        </form>
+    </div>
+</div>
+
+
+
+{% include 'navbar.html' %}
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}
+Premium Orders
+{% endblock %}
+
+
+{% block extrastyle %}
+
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+
+
+<nav class="purple darken-2">
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input disabled id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons"><a class="text-light" href="{% url 'premium_order_y' %}">arrow_back</a></i></label>
+
+        </div>
+      </form>
+    </div>
+</nav>
+
+<div class="container my-3" style="margin-top:25px;">
+</div>
+
+<div class="container" style="margin-top:25px;">
+    <div class="col s12 m7">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content">
+                    You have <span>{{ service.premium_services_price }}</span> Premium Service
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <b>Note</b>:&nbsp; Pickup is between 10 AM to 11 PM and Delivery time is between 8 PM to 9 PM
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+
+    <form class="mb-5" action="{% url 'premium_order_confirm' %}" method="POST">
+        {% csrf_token %}
+        <label>Select Cloth</label>
+        <select required id="select" name="cloth" class="input-field"  multiple>
+            <option value="" disabled>Select Your Choice</option>
+            {% for cloth in cloth %}
+                <option value="{{cloth}}">{{cloth}}</option>
+            {% endfor %}
+        </select><br />
+
+        <p>
+            <label>
+                <input type="checkbox" name="ironing" value="Ironing" />
+                <span>Ironing</span>
+            </label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>
+                <input type="checkbox" name="washing" value="Washing Liquid" />
+                <span>Washing Liquid</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" name="hotwater" value="Hot Water" />
+                <span>Hot Water</span>
+            </label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>
+                <input type="checkbox" name="coldwater" value="Cold Water" />
+                <span>Cold Water</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" name="softern" value="Softern" />
+                <span>Softern</span>
+            </label>
+        </p>
+        <br /><br />
+        <label>Pick Up Date</label>
+        <input required type="date" id="date" class="form-control" name="puck_up_date" id="">
+        <br/>
+        <label>Delivery Date</label>
+        <input required type="date" id="date" class="form-control" name="delivery" id="">
+
+        <label class="mt-3 ">Quantity</label>
+        <input required type="number" id="quantity" class="form-control " name="qunatity" id="">
+
+        <button type="submit"  class="btn btn-primary form-control my-3 mb-5"> Submit</button>
+    </form>
+</div>
+
+<div style="margin-top:30px"></div>
+<script>
+
+            var  d = new Date()
+            var cdate = d.getDate()
+            var cmonth = d.getDate()
+            var cyear = d.getDate()
+            var date = document.getElementsByName("puck_up_date")
+            console.log(date)
+            console.log(new Date().toISOString().split("T"))
+            date[0].setAttribute("min",new Date().toISOString().split('T')[0])
+</script>
+<script>
+
+    var  d = new Date()
+    var cdate = d.getDate()
+    var cmonth = d.getDate()
+    var cyear = d.getDate()
+    var date = document.getElementsByName("delivery")
+    console.log(date)
+    console.log(new Date().toISOString().split("T"))
+    date[0].setAttribute("min",new Date().toISOString().split('T')[0])
+</script>
+{% endblock %}

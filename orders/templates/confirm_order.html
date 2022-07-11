@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+Confirm Order
+{% endblock %}
+
+
+{% block extrastyle %}
+<style>
+.brand-name{
+    font-family: cursive;
+}
+</style>
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+
+<nav>
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input disabled id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons"><a class="text-light" href="{% url 'order' %}">close</a></i></label>
+
+        </div>
+      </form>
+    </div>
+  </nav>
+
+
+
+
+
+<div class="container" style="margin-top:25px;">
+    <form name="form" action="{% url 'saveorder' %}" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="form-group mt-2">
+            <label>Cloth Image : </label>
+            <input type="file" name="cloth_image" value="" class="form-control form-control-sm" id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Cloth : </label>
+            <input type="text"  value="{{cloth}}" class="form-control" disabled id="">
+            <input type="text" name="cloth" value="{{cloth}}" class="form-control" hidden id="">
+        </div>
+        {% for data in data %}
+                <div class="form-group mt-2">
+                    <input type="text"  value="{{data}}" class="form-control" disabled id="">
+                    <input type="text" name="{{data}}" value="{{data}}" class="form-control" hidden id="">
+                </div>
+        {% endfor %}
+
+
+        <div class="form-group mt-2">
+            <label>Price : </label>
+            <input type="text"  value="{{price}}" class="form-control" disabled id="">
+            <input type="text" name="price" value="{{price}}" class="form-control" hidden id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Quantity : </label>
+            <input type="text" value="{{quantity}}" class="form-control" disabled id="">
+            <input type="text" name="quantity" value="{{quantity}}" class="form-control" hidden id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Total Cost : </label>
+            <input type="text" value="{{total_cost}}" class="form-control" disabled id="">
+            <input type="text" name="total_cost" value="{{total_cost}}" class="form-control" hidden id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Pick Up Date : </label>
+            <input type="date"  name="pick_up_date" value="{{pick_up_date}}" class="form-control"  id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Pick Up Time : </label>
+            <input type="time"  name="pick_up_time" value="{{pick_up_time}}" class="form-control"  id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Delivery Date : </label>
+            <input type="date"  name="delivery" value="{{delivery}}" class="form-control"  id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Delivery Time : </label>
+            <input type="time"  name="delivery_time" value="{{delivery_time}}" class="form-control"  id="">
+        </div>
+        <div class="form-group mt-2">
+            <label>Order Summary : </label>
+            <input type="text"  name="order_summary" value="" class="form-control"  id="">
+        </div>
+        <div class="form-group mt-2">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

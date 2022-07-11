@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}
+home
+{% endblock %}
+
+
+{% load static %}
+{% block content %}
+
+{% include 'topbar.html' %}
+
+
+<div class="jumbotron jumbotron-fluid" style="background-image:url('https://media-cldnry.s-nbcnews.com/image/upload/newscms/2015_21/561946/new-clothes-wash-before-wear-today-stock-tease-150519.jpg');background-size:cover;background-repeat:none;">
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col" style="background-color:aquamarine; opacity:0.7;">
+                <h1 class="display-5  text-right" >Welcome</h1>
+                <p class="lead text-dark font-weight-bold">Flat 20% off on membership!!
+                    Join Now
+                </p>
+                <p><button class="btn btn-primary">Click Here</button></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#test1">Normal</a></li>
+        <li class="tab col s3"><a  href="#test2">Premium</a></li>
+      </ul>
+    </div>
+    <div id="test1" class="col s12">
+
+      {% for cloth in cloth_cat %}
+        <div class="col s12 m8 offset-m2 l6 offset-l3" style='margin-top:4rem'>
+            <div class="card-panel grey lighten-5 z-depth-1">
+              <div class="row valign-wrapper">
+                <div class="col s4">
+                  {% if cloth.image %}
+                  <img src="{{cloth.image.url}}" alt="" width="60px"> <!-- notice the "circle" class -->
+                  {% else %}
+                  <img src="{% static 'img/wallpaper.jpg' %}" alt="" width="60px" > <!-- notice the "circle" class -->
+                  {% endif %}
+                </div>
+                <div class="col s7">
+                    <span class="black-text">
+                      <h5 class="card-title"><a style="text-decoration:none;" class="text-dark"  href="{% url 'cloth_detail' cloth.id %}">{{cloth}} </a></h5>
+
+                    </span>
+                </div>
+              </div>
+            </div>
+        </div>
+      {% endfor %}
+
+    </div>
+    </div>
+    <div id="test2" class="col s12">
+
+      {% if service %}
+      Premium Service {{ service.premium_services_price }} <i class="fas fa-coins"></i>
+      {% endif %}
+      <div class="container">
+        {% if p_cloth_cat %}
+          {% for cloth in p_cloth_cat %}
+          <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card-panel grey lighten-5 z-depth-1">
+              <div class="row valign-wrapper">
+                <div class="col s4">
+                  {% if cloth.image %}
+                  <img src="{{cloth.image.url}}" alt="" width="60px"> <!-- notice the "circle" class -->
+                  {% else %}
+                  <img src="{% static 'img/wallpaper.jpg' %}" alt="" width="60px" > <!-- notice the "circle" class -->
+                  {% endif %}
+                </div>
+                <div class="col s7">
+                    <span class="black-text">
+                      {{ cloth.cloth_category_name }}
+                      <br>
+                      {% if service.premium_services_price %}
+                      {% else %}
+                      <form action="{% url 'premium_order' %}" method="POST">
+                          {% csrf_token %}
+                          <input type="text" hidden name="price" value="{{ cloth.price }}" />
+                          <br/>
+
+                          <button class="btn btn-primary">Purchase</button>
+                      </form>
+                      {% endif %}
+                    </span>
+                </div>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+      </div>
+
+</div>
+  </div>
+
+
+
+<script>var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+triggerTabList.forEach(function (triggerEl) {
+  var tabTrigger = new bootstrap.Tab(triggerEl)
+
+  triggerEl.addEventListener('click', function (event) {
+    event.preventDefault()
+    tabTrigger.show()
+  })
+})</script>
+
+
+{% endblock %}
